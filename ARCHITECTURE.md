@@ -222,30 +222,7 @@ function undo() {
 - Remove only Alice's circle? (Bob and Charlie's stuff stays)
 - Remove the green line? (Last thing drawn by anyone)
 - Remove everything Alice ever drew?
-
-**There's no good answer!** So I made undo local-only. Each person can only undo their own recent actions.
-
-### Better Approach (I Didn't Implement)
-
-Instead of screenshots, store the actual drawing commands:
-
-```javascript
-history = [
-  { user: "Alice", type: "circle", x: 100, y: 100, radius: 50 },
-  { user: "Bob", type: "line", x1: 0, y1: 0, x2: 100, y2: 100 },
-  { user: "Alice", type: "text", text: "Hi", x: 50, y: 50 }
-]
-
-// To undo: Remove last command and redraw everything else
-```
-
-**Why I didn't do this:**
-- Much more complex
-- Need to replay all commands on undo
-- Good for production apps, but too complicated for my timeframe
-
----
-
+  
 ## ⚡ Performance: Why I Made These Choices
 
 ### Problem 1: Too Many Messages
