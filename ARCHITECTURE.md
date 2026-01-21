@@ -163,7 +163,7 @@ I use Socket.IO to send these messages between browsers and server:
 
 ## ↩️ Undo/Redo: How I Handle It
 
-### My Approach: Take Screenshots
+### My Approach:
 
 After every stroke, I save the entire canvas as an image:
 
@@ -437,38 +437,9 @@ Alice's last stroke is still in-flight
 Result: Cleared canvas with one random stroke on it
 ```
 
-### Why I Didn't Fix This
 
-**Other apps use complex solutions:**
 
-Google Docs uses "Operational Transformation" - basically, they transform each operation based on what happened before it. Super complicated.
 
-Figma uses "CRDTs" - each operation has a timestamp and they merge them intelligently. Also very complex.
-
-**My reasoning:**
-- This is a learning project, not production app
-- Those solutions would take weeks to implement
-- For casual drawing, occasional conflicts are okay
-- In my testing with 2-3 users, conflicts were rare
-
-### What I'd Do If I Had More Time
-
-**Simple fix: Locking**
-```javascript
-// When you start drawing, "claim" that area
-socket.emit('lock', { x: 100, y: 100, width: 200, height: 200 });
-
-// Others can't draw there until you're done
-// Show red outline: "Alice is drawing here"
-```
-
-**Better fix: Leader election**
-```javascript
-// One user becomes "room leader"
-// All operations go through leader
-// Leader decides final order
-// Everyone else follows leader's version
-```
 
 ---
 
